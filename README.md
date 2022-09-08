@@ -1,19 +1,15 @@
-# Ethereum Blockies Base64
+# Ethereum Gradient Base64
 
-A tiny library for generating blocky identicons as base64 encoded PNGs.
-
-![Sample of generated blockies](sample.png "Blockies")
-
-[**See a live demo of it in action**](https://mycryptohq.github.io/ethereum-blockies-base64/)
+A tiny library for generating gradient identicons as base64 encoded PNGs.
 
 ## Install
 
 ```
 # NPM
-npm install --save ethereum-blockies-base64
+npm install --save ethereum-gradient-base64
 
 # Yarn
-yarn add ethereum-blockies-base64
+yarn add ethereum-gradient-base64
 ```
 
 ## Use
@@ -21,7 +17,7 @@ yarn add ethereum-blockies-base64
 ### Vanilla JS
 
 ```javascript
-import makeBlockie from 'ethereum-blockies-base64';
+import makeBlockie from 'ethereum-gradient-base64';
 
 const img = new Image() ;
 img.src = makeBlockie('0x7cB57B5A97eAbe94205C07890BE4c1aD31E486A8');
@@ -33,7 +29,7 @@ document.body.appendChild(img);
 
 ```javascript
 import React from 'react';
-import makeBlockie from 'ethereum-blockies-base64';
+import makeBlockie from 'ethereum-gradient-base64';
 
 class Blockie extends React.Component {
   render() {

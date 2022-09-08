@@ -87,7 +87,7 @@ function buildOpts(opts) {
   }, opts)
 }
 
-function makeBlockie(address) {
+function makeGradient(address) {
   const opts = buildOpts({ seed: address.toLowerCase() });
 
   const imageData = createImageData(opts.size);
@@ -111,4 +111,4 @@ function makeBlockie(address) {
   return `data:image/png;base64,${p.getBase64()}`;
 }
 
-module.exports = makeBlockie;
+module.exports = makeGradient;

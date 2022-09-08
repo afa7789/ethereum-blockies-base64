@@ -1,4 +1,4 @@
-const makeBlockie = require('../../dist/main');
+const makeGradient = require('../../dist/main');
 const addresses = require('./testAddresses.json');
 
 const container = document.getElementById('icons');
@@ -7,7 +7,7 @@ for (i = 0; i < addresses.length; i++) {
   var address = addresses[i];
   var icon = document.createElement('div');
   icon.title = address;
-  icon.style.backgroundImage = `url(${makeBlockie(address)})`;
+  icon.style.backgroundImage = `url(${makeGradient(address)})`;
   var title = document.createElement('h5');
   title.innerHTML = address;
 

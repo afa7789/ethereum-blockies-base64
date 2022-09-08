@@ -1,7 +1,7 @@
 {
-  "name": "ethereum-blockies-base64",
+  "name": "ethereum-gradient-base64",
   "version": "1.0.2",
-  "description": "A tiny library for generating base64 encoded PNG blocky identicons.",
+  "description": "A tiny library for generating base64 encoded PNG gradient identicons.",
   "main": "./dist/main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

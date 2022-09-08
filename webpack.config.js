@@ -8,7 +8,7 @@ module.exports = {
   output: {
     path: path.resolve(rootDir, 'dist'),
     filename: 'main.js',
-    library: 'ethereum-blockies-base64',
+    library: 'ethereum-gradient-base64',
     libraryTarget: 'umd'
   }
 };
