@@ -89,23 +89,29 @@ function buildOpts(opts) {
 
 function makeGradient(address) {
   const opts = buildOpts({ seed: address.toLowerCase() });
-
+  let calculated = opts.size * opts.scale
   const imageData = createImageData(opts.size);
-  const width = Math.sqrt(imageData.length);
 
-  const p = new pnglib(opts.size * opts.scale, opts.size * opts.scale, 3);
+  const p = new pnglib(calculated, calculated, 3);
   const bgcolor = p.color(...hsl2rgb(...opts.bgcolor));
   const color = p.color(...hsl2rgb(...opts.color));
   const spotcolor = p.color(...hsl2rgb(...opts.spotcolor));
 
-  for (let i = 0; i < imageData.length; i++) {
-    const row = Math.floor(i / width);
-    const col = i % width;
-    // if data is 0, leave the background
-    if (imageData[i]) {
-      // if data is 2, choose spot color, if 1 choose foreground
-      const pngColor = imageData[i] == 1 ? color : spotcolor;
-      fillRect(p, col * opts.scale, row * opts.scale, opts.scale, opts.scale, pngColor);
+  const colorDiff = [
+    (color[0]-spotcolor[0])/calculated,
+    (color[1]-spotcolor[1])/calculated,
+    (color[2]-spotcolor[2])/calculated
+  ]
+
+  for (let i = 0; i < calculated; i++) {
+    for( let j=0; j< calculated; j++) {
+      const row = Math.floor(i);
+      const col = j;
+
+      const pngColor = [colorDiff[0]*i,colorDiff[1]*i,colorDiff[2]*i,255]
+
+      fillRect(p,col,row,1,1,pngColor);
+      
     }
   }
   return `data:image/png;base64,${p.getBase64()}`;
