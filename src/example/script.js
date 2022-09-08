@@ -1,8 +1,10 @@
 const makeGradient = require('../../dist/main');
 const addresses = require('./testAddresses.json');
+console.log("I'm here")
 
 const container = document.getElementById('icons');
 for (i = 0; i < addresses.length; i++) {
+  console.log("for",i)
   // Create the blockie image
   var address = addresses[i];
   var icon = document.createElement('div');

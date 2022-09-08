@@ -88,32 +88,47 @@ function buildOpts(opts) {
 }
 
 function makeGradient(address) {
+  console.log("addres",address)
+
   const opts = buildOpts({ seed: address.toLowerCase() });
   let calculated = opts.size * opts.scale
   const imageData = createImageData(opts.size);
+  console.log("calculated",calculated)
 
   const p = new pnglib(calculated, calculated, 3);
-  const bgcolor = p.color(...hsl2rgb(...opts.bgcolor));
-  const color = p.color(...hsl2rgb(...opts.color));
-  const spotcolor = p.color(...hsl2rgb(...opts.spotcolor));
-
+  color = hsl2rgb(...opts.color)
+  spotcolor = hsl2rgb(...opts.spotcolor)
+  console.log("colors",color,spotcolor)
   const colorDiff = [
-    (color[0]-spotcolor[0])/calculated,
-    (color[1]-spotcolor[1])/calculated,
-    (color[2]-spotcolor[2])/calculated
+    (spotcolor[0]-color[0])/(calculated-1),
+    (spotcolor[1]-color[1])/(calculated-1),
+    (spotcolor[2]-color[2])/(calculated-1)
   ]
 
+  console.log("colorDiff",colorDiff)
+  let pngColor = []
+  let colorHere = []
   for (let i = 0; i < calculated; i++) {
+    colorHere = [
+      Math.floor(color[0]+colorDiff[0]*i),
+      Math.floor(color[1]+colorDiff[1]*i),
+      Math.floor(color[2]+colorDiff[2]*i),
+      255
+    ]
+    pngColor[i] = p.color(...colorHere)
+
     for( let j=0; j< calculated; j++) {
-      const row = Math.floor(i);
-      const col = j;
-
-      const pngColor = [colorDiff[0]*i,colorDiff[1]*i,colorDiff[2]*i,255]
-
-      fillRect(p,col,row,1,1,pngColor);
-      
+      // const row = j;
+      // const col = i;
+      fillRect(p,i,j,2,2,pngColor[i]);
     }
   }
+  
+  console.log(color)
+  console.log(spotcolor)
+  console.log("colorDiff",colorDiff)
+  console.log("calculated",calculated)
+
   return `data:image/png;base64,${p.getBase64()}`;
 }
 

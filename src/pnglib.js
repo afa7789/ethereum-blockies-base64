@@ -120,9 +120,9 @@ module.exports = function(width,height,depth) {
 
     // convert a color and build up the palette
     this.color = function(red, green, blue, alpha) {
-
         alpha = alpha >= 0 ? alpha : 255;
         var color = (((((alpha << 8) | red) << 8) | green) << 8) | blue;
+        console.log("color",color)
 
         if (typeof this.palette[color] == "undefined") {
             if (this.pindex == this.depth) return "\x00";
