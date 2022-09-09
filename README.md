@@ -20,7 +20,7 @@ yarn add ethereum-gradient-base64
 import makeBlockie from 'ethereum-gradient-base64';
 
 const img = new Image() ;
-img.src = makeBlockie('0x7cB57B5A97eAbe94205C07890BE4c1aD31E486A8');
+img.src = makeGradient('0x7cB57B5A97eAbe94205C07890BE4c1aD31E486A8');
 
 document.body.appendChild(img);
 ```
@@ -29,16 +29,16 @@ document.body.appendChild(img);
 
 ```javascript
 import React from 'react';
-import makeBlockie from 'ethereum-gradient-base64';
+import makeGradient from 'ethereum-gradient-base64';
 
-class Blockie extends React.Component {
+class Gradient extends React.Component {
   render() {
-    return <img src={makeBlockie(this.props.address)}/>
+    return <img src={makeGradient(this.props.address)}/>
   }
 }
 ```
 
-Note: In a real setting, we recommend saving to state and re-making the blockie on prop change for better re-render performance.
+Note: In a real setting, we recommend saving to state and re-making the gradient on prop change for better re-render performance.
 
 
 License
