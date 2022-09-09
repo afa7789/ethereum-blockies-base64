@@ -3,6 +3,7 @@
   "version": "1.1.2",
   "description": "A tiny library for generating base64 encoded PNG gradient identicons.",
   "main": "./dist/main.js",
+  "author": "Arthur Abeilice, afa7789@gmail.com",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack --config=webpack.config.js",
@@ -11,14 +12,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/MyCryptoHQ/ethereum-blockies-base64.git"
+    "url": "git+https://github.com/afa7789/ethereum-gradient-base64.git"
   },
   "author": "MyCrypto",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/MyCryptoHQ/ethereum-blockies-base64/issues"
+    "url": "https://github.com/afa7789/ethereum-gradient-base64/issues"
   },
-  "homepage": "https://github.com/MyCryptoHQ/ethereum-blockies-base64#readme",
+  "homepage": "https://github.com/afa7789/ethereum-gradient-base64/#readme",
   "dependencies": {
     "pnglib": "0.0.1"
   },
