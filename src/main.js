@@ -84,6 +84,7 @@ function buildOpts(opts) {
     color: createColor(),
     bgcolor: createColor(),
     spotcolor: createColor(),
+    extracolor: createColor(),
   }, opts)
 }
 
@@ -140,18 +141,58 @@ function makeGradient(address) {
 
   const color = hsl2rgb(...opts.color)
   const spotcolor = hsl2rgb(...opts.spotcolor)
+  const extracolor = hsl2rgb(...opts.extracolor)
 
-  let svgXml = `<svg height="${calculated}" width="${calculated}"  xmlns='http://www.w3.org/2000/svg'>
+  const color1 = `rgb(${color[0]},${color[1]},${color[2]})`
+  const color2 = `rgb(${spotcolor[0]},${spotcolor[1]},${spotcolor[2]})`
+  const color3 = `rgb(${extracolor[0]},${extracolor[1]},${extracolor[2]})`
+
+
+  console.log("color",color)
+  console.log("spotcolor",spotcolor)
+  console.log("extracolor",extracolor)
+
+  let SvgMoving = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${calculated} ${calculated}">
   <defs>
-    <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" style="stop-color:rgb(${color[0]},${color[1]},${color[2]});stop-opacity:1" />
-      <stop offset="100%" style="stop-color:rgb(${spotcolor[0]},${spotcolor[1]},${spotcolor[2]});stop-opacity:1" />
-    </linearGradient>
+     <linearGradient id='a' gradientUnits='objectBoundingBox' x1='0' y1='0' x2='1' y2='1'>
+        <stop offset='0' stop-color='${color1}'>
+           <animate attributeName="stop-color"
+              values="${color1};${color2};${color3};${color1};${color2};${color3};${color1};" dur="20s" repeatCount="indefinite">
+           </animate>
+        </stop>
+        <stop offset='.5' stop-color='${color2}'>
+           <animate attributeName="stop-color"
+              values="${color2};${color3};${color1};${color2};${color3};${color1};${color2};" dur="20s" repeatCount="indefinite">
+           </animate>
+        </stop>
+        <stop offset='1' stop-color='  ${color3}'>
+           <animate attributeName="stop-color"
+              values="${color3};${color1};${color2};${color3};${color1};${color2};${color3};" dur="20s" repeatCount="indefinite">
+           </animate>
+        </stop>
+        <animateTransform attributeName="gradientTransform" type="rotate" from="0 .5 .5" to="360 .5 .5"
+           dur="20s" repeatCount="indefinite" />
+     </linearGradient>
+     <linearGradient id='b' gradientUnits='objectBoundingBox' x1='0' y1='1' x2='1' y2='1'>
+        <stop offset='0' stop-color='${color1}'>
+           <animate attributeName="stop-color"
+              values="${color1};${color2};${color3};${color1};${color2};${color3};${color1};" dur="20s" repeatCount="indefinite">
+           </animate>
+        </stop>
+        <stop offset='1' stop-color='${color2}' stop-opacity="0">
+           <animate attributeName="stop-color"
+              values="${color2};${color3};${color1};${color2};${color3};${color1};${color2};" dur="20s" repeatCount="indefinite">
+           </animate>
+        </stop>
+        <animateTransform attributeName="gradientTransform" type="rotate" values="360 .5 .5;0 .5 .5" class="ignore"
+           dur="10s" repeatCount="indefinite" />
+     </linearGradient>
   </defs>
-  <rect width="${calculated}" height="${calculated}" fill="url(#grad1)" />
+  <rect fill='url(#a)' width='100%' height='100%' />
+  <rect fill='url(#b)' width='100%' height='100%' />
 </svg>`
 
-  return `data:image/svg+xml;base64,${btoa(unescape(encodeURIComponent(svgXml)))}`;
+  return `data:image/svg+xml;base64,${btoa(unescape(encodeURIComponent(SvgMoving)))}`;
 }
 
 module.exports = makeGradient;
