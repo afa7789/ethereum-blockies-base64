@@ -87,7 +87,7 @@ function buildOpts(opts) {
   }, opts)
 }
 
-function makeGradient(address) {
+function makeGradientOld(address) {
   console.log("addres",address)
 
   const opts = buildOpts({ seed: address.toLowerCase() });
@@ -115,6 +115,7 @@ function makeGradient(address) {
       Math.floor(color[2]+colorDiff[2]*i),
       255
     ]
+    console.log("colorHere",colorHere)
     pngColor[i] = p.color(...colorHere)
 
     for( let j=0; j< calculated; j++) {
@@ -130,6 +131,27 @@ function makeGradient(address) {
   console.log("calculated",calculated)
 
   return `data:image/png;base64,${p.getBase64()}`;
+}
+
+
+function makeGradient(address) {
+  const opts = buildOpts({ seed: address.toLowerCase() });
+  let calculated = opts.size * opts.scale
+
+  const color = hsl2rgb(...opts.color)
+  const spotcolor = hsl2rgb(...opts.spotcolor)
+
+  let svgXml = `<svg height="${calculated}" width="${calculated}"  xmlns='http://www.w3.org/2000/svg'>
+  <defs>
+    <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:rgb(${color[0]},${color[1]},${color[2]});stop-opacity:1" />
+      <stop offset="100%" style="stop-color:rgb(${spotcolor[0]},${spotcolor[1]},${spotcolor[2]});stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect width="${calculated}" height="${calculated}" fill="url(#grad1)" />
+</svg>`
+
+  return `data:image/svg+xml;base64,${btoa(unescape(encodeURIComponent(svgXml)))}`;
 }
 
 module.exports = makeGradient;
