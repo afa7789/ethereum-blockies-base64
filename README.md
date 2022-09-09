@@ -21,7 +21,7 @@ yarn add ethereum-gradient-base64
 ### Vanilla JS
 
 ```javascript
-import makeBlockie from 'ethereum-gradient-base64';
+import makeGradient from 'ethereum-gradient-base64';
 
 const img = new Image() ;
 img.src = makeGradient('0x7cB57B5A97eAbe94205C07890BE4c1aD31E486A8');
