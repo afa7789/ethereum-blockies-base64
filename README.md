@@ -1,6 +1,6 @@
 # Ethereum Gradient Base64
 
-A tiny library for generating gradient identicons as base64 encoded PNGs.
+A tiny library for generating gradient identicons as base64 encoded SVGs.
 
 ![Sample of generated gradients](sample_gradient.png "Gradients")
 
