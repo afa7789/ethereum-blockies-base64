@@ -2,7 +2,7 @@
 
 A tiny library for generating gradient identicons as base64 encoded PNGs.
 
-![Sample of generated gradients](sample.png "Gradients")
+![Sample of generated gradients](sample2.png "Gradients")
 
 [**See a live demo of it in action**](https://afa7789.github.io/ethereum-gradient-base64/)
 
