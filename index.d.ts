@@ -1,3 +1,3 @@
-declare module 'ethereum-blockies-base64' {
-  export default function makeBlockie(address: string): string;
+declare module 'ethereum-gradient-base64' {
+  export default function makeGradient(address: string): string;
 }
