@@ -9,6 +9,7 @@ module.exports = {
     path: path.resolve(rootDir, 'dist'),
     filename: 'main.js',
     library: 'ethereum-gradient-base64',
-    libraryTarget: 'umd'
+    libraryTarget: 'umd',
+    globalObject: "this"
   }
 };
