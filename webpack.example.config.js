@@ -13,7 +13,7 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      title: 'Ethereum Blockies Base64',
+      title: 'Ethereum Gradient Base64',
       template: path.resolve(rootDir, 'src/example/index.html'),
       inject: true
     })
