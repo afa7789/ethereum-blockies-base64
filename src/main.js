@@ -89,24 +89,20 @@ function buildOpts(opts) {
 }
 
 function makeGradientOld(address) {
-  console.log("addres",address)
 
   const opts = buildOpts({ seed: address.toLowerCase() });
   let calculated = opts.size * opts.scale
   const imageData = createImageData(opts.size);
-  console.log("calculated",calculated)
 
   const p = new pnglib(calculated, calculated, 3);
   color = hsl2rgb(...opts.color)
   spotcolor = hsl2rgb(...opts.spotcolor)
-  console.log("colors",color,spotcolor)
   const colorDiff = [
     (spotcolor[0]-color[0])/(calculated-1),
     (spotcolor[1]-color[1])/(calculated-1),
     (spotcolor[2]-color[2])/(calculated-1)
   ]
 
-  console.log("colorDiff",colorDiff)
   let pngColor = []
   let colorHere = []
   for (let i = 0; i < calculated; i++) {
@@ -116,7 +112,6 @@ function makeGradientOld(address) {
       Math.floor(color[2]+colorDiff[2]*i),
       255
     ]
-    console.log("colorHere",colorHere)
     pngColor[i] = p.color(...colorHere)
 
     for( let j=0; j< calculated; j++) {
@@ -126,11 +121,6 @@ function makeGradientOld(address) {
     }
   }
   
-  console.log(color)
-  console.log(spotcolor)
-  console.log("colorDiff",colorDiff)
-  console.log("calculated",calculated)
-
   return `data:image/png;base64,${p.getBase64()}`;
 }
 
@@ -146,11 +136,6 @@ function makeGradient(address) {
   const color1 = `rgb(${color[0]},${color[1]},${color[2]})`
   const color2 = `rgb(${spotcolor[0]},${spotcolor[1]},${spotcolor[2]})`
   const color3 = `rgb(${extracolor[0]},${extracolor[1]},${extracolor[2]})`
-
-
-  console.log("color",color)
-  console.log("spotcolor",spotcolor)
-  console.log("extracolor",extracolor)
 
   let SvgMoving = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${calculated} ${calculated}">
   <defs>
