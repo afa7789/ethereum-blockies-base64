@@ -1,6 +1,6 @@
 {
   "name": "ethereum-gradient-base64",
-  "version": "1.1.8",
+  "version": "1.1.9",
   "description": "A tiny library for generating base64 encoded PNG gradient identicons.",
   "main": "./dist/main.js",
   "author": "Arthur Abeilice, afa7789@gmail.com",
