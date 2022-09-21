@@ -52,7 +52,7 @@ function buildOpts(opts) {
   }, opts)
 }
 
-function makeGradientAnimated(address) {
+function makeGradient(address) {
   const opts = buildOpts({ seed: address.toLowerCase() });
   let calculated = opts.size * opts.scale
 
@@ -107,7 +107,7 @@ function makeGradientAnimated(address) {
   return `data:image/svg+xml;base64,${btoa(unescape(encodeURIComponent(SvgMoving)))}`;
 }
 
-function makeGradient(address) {
+function makeGradientStatic(address) {
   const opts = buildOpts({ seed: address.toLowerCase() });
   let calculated = opts.size * opts.scale
 
@@ -143,5 +143,5 @@ function makeGradient(address) {
 
 module.exports = {
   makeGradient: makeGradient,
-  makeGradientAnimated: makeGradientAnimated
+  makeGradientStatic: makeGradientStatic
 };
