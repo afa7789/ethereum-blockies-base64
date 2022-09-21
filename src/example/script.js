@@ -1,4 +1,4 @@
-const makeGradient = require('../../dist/main');
+const {makeGradient} = require('../../dist/main');
 const addresses = require('./testAddresses.json');
 
 const container = document.getElementById('icons');

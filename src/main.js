@@ -1,4 +1,3 @@
-const pnglib = require('./pnglib');
 const hsl2rgb = require('./hsl2rgb');
 
 // The random number is a js implementation of the Xorshift PRNG
@@ -34,6 +33,11 @@ function createColor() {
   const l = (rand() + rand() + rand() + rand()) * 25 ;
 
   return [h / 360, s / 100, l / 100];
+}
+
+function randomAngle(){
+  // it goes from -360 to 360
+  return rand() * 720 - 360
 }
 
 function createImageData(size) {
@@ -88,44 +92,7 @@ function buildOpts(opts) {
   }, opts)
 }
 
-function makeGradientOld(address) {
-
-  const opts = buildOpts({ seed: address.toLowerCase() });
-  let calculated = opts.size * opts.scale
-  const imageData = createImageData(opts.size);
-
-  const p = new pnglib(calculated, calculated, 3);
-  color = hsl2rgb(...opts.color)
-  spotcolor = hsl2rgb(...opts.spotcolor)
-  const colorDiff = [
-    (spotcolor[0]-color[0])/(calculated-1),
-    (spotcolor[1]-color[1])/(calculated-1),
-    (spotcolor[2]-color[2])/(calculated-1)
-  ]
-
-  let pngColor = []
-  let colorHere = []
-  for (let i = 0; i < calculated; i++) {
-    colorHere = [
-      Math.floor(color[0]+colorDiff[0]*i),
-      Math.floor(color[1]+colorDiff[1]*i),
-      Math.floor(color[2]+colorDiff[2]*i),
-      255
-    ]
-    pngColor[i] = p.color(...colorHere)
-
-    for( let j=0; j< calculated; j++) {
-      // const row = j;
-      // const col = i;
-      fillRect(p,i,j,2,2,pngColor[i]);
-    }
-  }
-  
-  return `data:image/png;base64,${p.getBase64()}`;
-}
-
-
-function makeGradient(address) {
+function makeGradientAnimated(address) {
   const opts = buildOpts({ seed: address.toLowerCase() });
   let calculated = opts.size * opts.scale
 
@@ -180,4 +147,57 @@ function makeGradient(address) {
   return `data:image/svg+xml;base64,${btoa(unescape(encodeURIComponent(SvgMoving)))}`;
 }
 
-module.exports = makeGradient;
+function makeGradient(address) {
+  const opts = buildOpts({ seed: address.toLowerCase() });
+  let calculated = opts.size * opts.scale
+
+  const color = hsl2rgb(...opts.color)
+  const spotcolor = hsl2rgb(...opts.spotcolor)
+  const extracolor = hsl2rgb(...opts.extracolor)
+
+  const color1 = `rgb(${color[0]},${color[1]},${color[2]})`
+  const color2 = `rgb(${spotcolor[0]},${spotcolor[1]},${spotcolor[2]})`
+  const color3 = `rgb(${extracolor[0]},${extracolor[1]},${extracolor[2]})`
+
+  random1_X1 = randomAngle()
+  random1_X2 = randomAngle()
+  random2_X1 = randomAngle()
+  random2_X2 = randomAngle()
+
+  random1_Y1 = randomAngle()
+  random1_Y2 = randomAngle()
+  random2_Y1 = randomAngle()
+  random2_Y2 = randomAngle()
+
+  let SvgStatic = `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 ${calculated} ${calculated}">
+    <defs>
+      <linearGradient id="b">
+        <stop offset="0" stop-color="${color1}"/>
+        <stop offset="1" stop-color="${color2}"/>
+      </linearGradient>
+      <linearGradient id="a">
+        <stop offset="0" stop-color="${color3}"/>
+        <stop offset="1" stop-opacity="0"/>
+      </linearGradient>
+      <linearGradient xlink:href="#a" id="d" 
+        x1="${random1_X1}" x2="${random1_X2}" y1="${random1_Y1}" y2="${random1_Y1}" 
+        gradientTransform="translate(.2 26.325)" gradientUnits="userSpaceOnUse"
+      />
+      <linearGradient xlink:href="#b" id="c" 
+        x1="${random2_X1}" x2="${random2_X2}" y1="${random2_Y1}" y2="${random2_Y1}"
+        gradientTransform="translate(.2 26.325)" gradientUnits="userSpaceOnUse"
+      />
+    </defs>
+    <g paint-order="fill markers stroke">
+      <path fill="url(#c)" d="M10.027 63.278h185.208v185.208H10.027z" transform="translate(-10.027 -63.278)"/>
+      <path fill="url(#d)" d="M10.027 63.278h185.208v185.208H10.027z" transform="translate(-10.027 -63.278)"/>
+    </g>
+  </svg>`
+
+  return `data:image/svg+xml;base64,${btoa(unescape(encodeURIComponent(SvgStatic)))}`;
+}
+
+module.exports = {
+  makeGradient: makeGradient,
+  makeGradientAnimated: makeGradientAnimated
+};
