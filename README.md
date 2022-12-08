@@ -21,7 +21,7 @@ yarn add ethereum-gradient-base64
 ### Vanilla JS
 
 ```javascript
-import makeGradient from 'ethereum-gradient-base64';
+import {makeGradient} from 'ethereum-gradient-base64';
 // you can use makeGradientStatic for a gradient that does not move. Is not animated.
 
 const img = new Image() ;
@@ -34,7 +34,7 @@ document.body.appendChild(img);
 
 ```javascript
 import React from 'react';
-import makeGradient from 'ethereum-gradient-base64';
+import {makeGradient} from 'ethereum-gradient-base64';
 // you can use makeGradientStatic for a gradient that does not move. Is not animated.
 
 class Gradient extends React.Component {
